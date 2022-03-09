@@ -18,6 +18,7 @@
 #include <linux/i2c.h>
 #include <linux/of_platform.h>
 #include <linux/regmap.h>
+#include <linux/acpi.h>
 
 static struct regmap_config sensehat_config = {
 	.name = "sensehat",
@@ -46,11 +47,20 @@ static const struct of_device_id sensehat_i2c_of_match[] = {
 };
 MODULE_DEVICE_TABLE(of, sensehat_i2c_of_match);
 
+#ifdef CONFIG_ACPI
+static const struct acpi_device_id sensehat_acpi_match[] = {
+	{ "RPI1001", 0 },
+	{ },
+};
+MODULE_DEVICE_TABLE(acpi, sensehat_acpi_match);
+#endif
+
 static struct i2c_driver sensehat_driver = {
 	.probe_new = sensehat_probe,
 	.driver = {
 		.name = "sensehat",
 		.of_match_table = sensehat_i2c_of_match,
+		.acpi_match_table = ACPI_PTR(sensehat_acpi_match),
 	},
 };
 

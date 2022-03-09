@@ -24,6 +24,7 @@
 #include <linux/miscdevice.h>
 #include <linux/regmap.h>
 #include <linux/property.h>
+#include <linux/acpi.h>
 
 #define DISPLAY_SMB_REG 0x00
 
@@ -173,12 +174,21 @@ static const struct of_device_id sensehat_display_device_id[] = {
 };
 MODULE_DEVICE_TABLE(of, sensehat_display_device_id);
 
+#ifdef CONFIG_ACPI
+static const struct acpi_device_id sensehat_display_acpi_match[] = {
+	{ "RPI1002", 0 },
+	{ },
+};
+MODULE_DEVICE_TABLE(acpi, sensehat_display_acpi_match);
+#endif
+
 static struct platform_driver sensehat_display_driver = {
 	.probe = sensehat_display_probe,
 	.remove = sensehat_display_remove,
 	.driver = {
 		.name = "sensehat-display",
 		.of_match_table = sensehat_display_device_id,
+		.acpi_match_table = sensehat_display_acpi_match,
 	},
 };
 

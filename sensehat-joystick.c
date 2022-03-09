@@ -17,6 +17,7 @@
 #include <linux/platform_device.h>
 #include <linux/regmap.h>
 #include <linux/property.h>
+#include <linux/acpi.h>
 
 #define JOYSTICK_SMB_REG 0xf2
 
@@ -113,11 +114,20 @@ static const struct of_device_id sensehat_joystick_device_id[] = {
 };
 MODULE_DEVICE_TABLE(of, sensehat_joystick_device_id);
 
+#ifdef CONFIG_ACPI
+static const struct acpi_device_id sensehat_joystick_acpi_match[] = {
+	{ "RPI1003", 0 },
+	{ },
+};
+MODULE_DEVICE_TABLE(acpi, sensehat_joystick_acpi_match);
+#endif
+
 static struct platform_driver sensehat_joystick_driver = {
 	.probe = sensehat_joystick_probe,
 	.driver = {
 		.name = "sensehat-joystick",
 		.of_match_table = sensehat_joystick_device_id,
+		.acpi_match_table = ACPI_PTR(sensehat_joystick_acpi_match),
 	},
 };
 
