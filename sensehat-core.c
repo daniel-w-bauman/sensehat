@@ -28,6 +28,7 @@ static struct regmap_config sensehat_config = {
 
 static int sensehat_probe(struct i2c_client *i2c)
 {
+	printk(KERN_INFO "asdf\n");
 	struct regmap *regmap =
 		devm_regmap_init_i2c(i2c, &sensehat_config);
 
