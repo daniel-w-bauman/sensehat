@@ -43,6 +43,13 @@ DefinitionBlock ("ssdt3.aml", "SSDT", 1, "rasbpi", "Sensehat", 0x00000000)
 						Package () {"compatible", Package () { "raspberrypi,sensehat-joystick" }}
 					}
 				})
+				Method (_CRS, 0, Serialized)
+				{
+					Name (SBUF, ResourceTemplate () 
+					{
+						Interrupt(ResourceConsumer, Level, ActiveHigh, Exclusive) {0x17}
+					})
+				}
 			}
 		}
 	}
