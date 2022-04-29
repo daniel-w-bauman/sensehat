@@ -26,6 +26,7 @@ DefinitionBlock ("ssdt3.aml", "SSDT", 1, "rasbpi", "Sensehat", 0x00000000)
 			Device (SEDP)
 			{
 				Name(_HID, "PRP0001")
+				Name(_DEP, Package () {\_SB.GDV0.I2C1.SENS})
 				Name(_DSD, Package () {
 					ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
 					Package () {
@@ -37,6 +38,7 @@ DefinitionBlock ("ssdt3.aml", "SSDT", 1, "rasbpi", "Sensehat", 0x00000000)
 			Device (SEJS)
 			{
 				Name(_HID, "PRP0001")
+				Name(_DEP, Package () {\_SB.GDV0.I2C1.SENS})
 				Name(_DSD, Package () {
 					ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
 					Package () {
@@ -49,6 +51,7 @@ DefinitionBlock ("ssdt3.aml", "SSDT", 1, "rasbpi", "Sensehat", 0x00000000)
 					{
 						Interrupt(ResourceConsumer, Level, ActiveHigh, Exclusive) {0x17}
 					})
+					Return (SBUF)
 				}
 			}
 		}
